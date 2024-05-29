@@ -17,10 +17,11 @@ header = dbc.NavbarSimple(
 
 # Define menu for choosing different modeling
 modeling_menu = dbc.Card([
-    dbc.CardHeader(html.H4("Choose Model")),
+    dbc.CardHeader(html.H4("Choose Map")),
     dbc.ListGroup(
         [
-            dbc.ListGroupItem("Multinomial logistic regression", href="#"),
+            dbc.ListGroupItem("Belgium", href="/map-belgium"),
+            dbc.ListGroupItem("Brussels", href="map-brussels"),
         ],
         horizontal=True,  # Set the ListGroup to display items horizontally
         className="d-flex justify-content-center flex-wrap",  # Use flexbox to center items horizontally and wrap them to the next line if the horizontal space is insufficient
