@@ -7,24 +7,24 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 
-# Add the '3_App' directory to the system path
-sys.path.append(os.path.join(os.path.dirname(__file__), '3_App'))
+# Add the 'App' directory to the system path
+#sys.path.append(os.path.join(os.path.dirname(__file__), 'App'))
 
-from pages.homepage import homepage_layout
-from pages.CLEANING import data_cleaning_layout
-from pages.EDA import exploratory_data_analysis_layout
-from pages.EDA_correlation_heatmaps import correlation_heatmap_layout, update_heatmap, update_explanation_heatmap
-from pages.EDA_histograms import histogram_layout, update_histograms
-from pages.EDA_line_charts_1 import line_chart_1_layout
-from pages.EDA_line_charts_2 import line_chart_2_layout
-from pages.EDA_bar_charts_1 import bar_chart_1_layout, update_bar_charts
-from pages.EDA_bar_charts_2 import bar_chart_2_layout
-from pages.EDA_pie_charts import pie_charts_layout, update_pie_charts
-from pages.EDA_map_subplots import map_subplot_layout, update_map_subplots
-from pages.EDA_bubble_map import bubble_map_layout, update_bubble_map
-from pages.MODELING import modeling_layout
-from pages.MODELING_map_belgium import map_belgium_layout
-from pages.MODELING_map_brussels import map_brussels_layout
+from App.pages.homepage import homepage_layout
+from App.pages.CLEANING import data_cleaning_layout
+from App.pages.EDA import exploratory_data_analysis_layout
+from App.pages.EDA_correlation_heatmaps import correlation_heatmap_layout, update_heatmap, update_explanation_heatmap
+from App.pages.EDA_histograms import histogram_layout, update_histograms
+from App.pages.EDA_line_charts_1 import line_chart_1_layout
+from App.pages.EDA_line_charts_2 import line_chart_2_layout
+from App.pages.EDA_bar_charts_1 import bar_chart_1_layout, update_bar_charts
+from App.pages.EDA_bar_charts_2 import bar_chart_2_layout
+from App.pages.EDA_pie_charts import pie_charts_layout, update_pie_charts
+from App.pages.EDA_map_subplots import map_subplot_layout, update_map_subplots
+from App.pages.EDA_bubble_map import bubble_map_layout, update_bubble_map
+from App.pages.MODELING import modeling_layout
+from App.pages.MODELING_map_belgium import map_belgium_layout
+from App.pages.MODELING_map_brussels import map_brussels_layout
 
 
 # External CSS
@@ -195,7 +195,7 @@ def update_bubble_map_figure(start_date, end_date):
 #server = app.server 
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=8000, debug=True) # Host + port needs to be the same as in Procfile
+    app.run_server(host='0.0.0.0', port=8050, debug=True) # Host + port needs to be the same as in Procfile
 
 
 
