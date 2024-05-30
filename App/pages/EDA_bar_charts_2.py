@@ -16,15 +16,9 @@ base64_encoded_image = image_to_base64(image_path)
 
 
 # Define a function to load the dataset asynchronously
-async def load_dataset(filename):
-    # Get the absolute path of the current script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Construct the absolute path to the Parquet file
-    file_path = os.path.join(script_dir, '../data', filename)
-    # Normalize the path
-    file_path = os.path.normpath(file_path)
+async def load_dataset(filepath):
     # Read the Parquet file into a pandas DataFrame
-    dataset = pd.read_parquet(file_path, engine='pyarrow')
+    dataset = pd.read_parquet(filepath, engine='pyarrow')
     # Simulate data loading time
     await asyncio.sleep(1)
     return dataset
@@ -69,11 +63,11 @@ def create_bar_chart_figure(dataset, title):
 # Define a function to create the bar chart layout
 async def bar_chart_2_layout():
     # Load the main dataset asynchronously
-    interventions_dataset = await load_dataset('interventions_dataset.parquet')
+    interventions_dataset = await load_dataset('1_Data/CLEANED/interventions_dataset.parquet')
     fig1 = create_bar_chart_figure(interventions_dataset, 'Median Time Differences by Step in the Process and Vector Type (All interventions)')
 
     # Load the subset cardiac dataset asynchronously
-    subset_cardiac_dataset = await load_dataset('subset_cardiac.parquet')
+    subset_cardiac_dataset = await load_dataset('1_Data/CLEANED/subset_cardiac.parquet')
     fig2 = create_bar_chart_figure(subset_cardiac_dataset, 'Median Time Differences by Step in the Process and Vector Type (P003 - Cardiac Arrest)')
 
     # Define layout for the bar charts

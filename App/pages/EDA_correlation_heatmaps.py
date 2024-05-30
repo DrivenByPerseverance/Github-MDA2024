@@ -1,4 +1,3 @@
-import os
 import asyncio
 from dash import html, dcc
 import plotly.graph_objs as go
@@ -6,24 +5,23 @@ import pandas as pd
 
 # Define a function to load the dataset asynchronously
 async def load_dataset(option):
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if option == 1:
-        file_path = os.path.join(base_dir, 'data', 'subset_correlation_heatmap1.parquet')
+        file_path = '1_Data/CLEANED/subset_correlation_heatmap1.parquet'
         selected_columns = ['eventlevel_trip', 'eventlevel_firstcall']
     elif option == 2:
-        file_path = os.path.join(base_dir, 'data', 'subset_correlation_heatmap2.parquet')
+        file_path = '1_Data/CLEANED/subset_correlation_heatmap2.parquet'
         selected_columns = ['eventtype_trip', 'eventtype_firstcall']
     elif option == 3:
-        file_path = os.path.join(base_dir, 'data', 'subset_correlation_heatmap3.parquet')
+        file_path = '1_Data/CLEANED/subset_correlation_heatmap3.parquet'
         selected_columns = ['eventtype_trip', 'eventlevel_trip']
     elif option == 4:
-        file_path = os.path.join(base_dir, 'data', 'subset_correlation_heatmap4.parquet')
+        file_path = '1_Data/CLEANED/subset_correlation_heatmap4.parquet'
         selected_columns = ['eventlevel_trip', 'vector_type']
     elif option == 5:
-        file_path = os.path.join(base_dir, 'data', 'subset_correlation_heatmap5.parquet')
+        file_path = '1_Data/CLEANED/subset_correlation_heatmap5.parquet'
         selected_columns = ['eventtype_trip', 'vector_type']
     elif option == 6:
-        file_path = os.path.join(base_dir, 'data', 'subset_correlation_heatmap6.parquet')
+        file_path = '1_Data/CLEANED/subset_correlation_heatmap6.parquet'
         selected_columns = ['eventtype_trip', 'abandon_reason']
     else:
         raise ValueError("Invalid option")

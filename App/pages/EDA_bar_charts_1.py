@@ -1,4 +1,3 @@
-import os
 import asyncio
 import pandas as pd
 import plotly.express as px
@@ -6,9 +5,7 @@ from dash import html, dcc
 
 # Define a function to load the dataset asynchronously
 async def load_dataset():
-    # Define the absolute path to the Parquet file
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    file_path = os.path.join(base_dir, 'data', 'subset_selected_events.parquet')
+    file_path = '1_Data/CLEANED/subset_selected_events.parquet'
     # Read the Parquet file into a pandas DataFrame
     subset_selected_events = pd.read_parquet(file_path, engine='pyarrow')
     # Simulate data loading time
