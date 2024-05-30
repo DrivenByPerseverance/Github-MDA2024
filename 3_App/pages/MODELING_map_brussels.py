@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import asyncio
 from dash import html
@@ -5,11 +6,13 @@ import folium
 
 # Define a function to load the dataset asynchronously
 async def load_dataset():
-    file_path_emergence_services = '1_Data/CLEANED/hospital_brl.csv'
-    file_path_cardiac_events = '1_Data/CLEANED/intervention_aed_brl.csv'
-    file_path_old_AED = '1_Data/CLEANED/aed_brl.csv'
-    file_path_AED_kmeans = '1_Data/CLEANED/aed_brl_kmeans.csv'
-    file_path_AED_lscp = '1_Data/CLEANED/aed_brl_lscp.csv'
+    # Define the absolute path to the Parquet file
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    file_path_emergence_services = os.path.join(base_dir, 'data', 'hospital_brl.csv')
+    file_path_cardiac_events = os.path.join(base_dir, 'data', 'intervention_aed_brl.csv')
+    file_path_old_AED = os.path.join(base_dir, 'data', 'aed_brl.csv')
+    file_path_AED_kmeans = os.path.join(base_dir, 'data', 'aed_brl_kmeans.csv')
+    file_path_AED_lscp = os.path.join(base_dir, 'data', 'aed_brl_lscp.csv')
 
     # Read the Parquet file into a pandas DataFrame
     hospital_df = pd.read_csv(file_path_emergence_services)

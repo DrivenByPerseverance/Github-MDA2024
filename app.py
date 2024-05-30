@@ -1,9 +1,14 @@
+import sys
+import os
 import asyncio
 import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
+
+# Add the '3_App' directory to the system path
+sys.path.append(os.path.join(os.path.dirname(__file__), '3_App'))
 
 from pages.homepage import homepage_layout
 from pages.CLEANING import data_cleaning_layout
@@ -190,7 +195,7 @@ def update_bubble_map_figure(start_date, end_date):
 #server = app.server 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=8000, debug=True) # Host + port needs to be the same as in Procfile
 
 
 
