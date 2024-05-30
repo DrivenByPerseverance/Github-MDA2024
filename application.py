@@ -5,10 +5,6 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-import pandas as pd
-
-# Add the 'App' directory to the system path
-#sys.path.append(os.path.join(os.path.dirname(__file__), 'App'))
 
 from App.pages.homepage import homepage_layout
 from App.pages.CLEANING import data_cleaning_layout
@@ -39,6 +35,10 @@ external_css = [
 
 app = dash.Dash(__name__, external_stylesheets=external_css, suppress_callback_exceptions=True)
 
+# Needed for deployment
+application = app.server 
+
+# Lay-out
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
@@ -191,11 +191,9 @@ def update_bubble_map_figure(start_date, end_date):
     bubble_map_layout = asyncio.run(update_bubble_map(start_date, end_date))
     return bubble_map_layout
 
-# Code for wsgi.py file
-#server = app.server 
-
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=8050, debug=True) # Host + port needs to be the same as in Procfile
+    app.run_server(debug=True)
+    #app.run_server(host='0.0.0.0', port=8050, debug=True) # Host + port needs to be the same as in Procfile
 
 
 
