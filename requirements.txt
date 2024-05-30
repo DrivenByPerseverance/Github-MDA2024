@@ -58,6 +58,7 @@ geopy==2.4.1
 gmpy2==2.1.5
 googlemaps==4.10.0
 grpcio==1.62.1
+gunicorn==22.0.0
 gurobipy==11.0.1
 gym==0.26.2
 gym-notices==0.0.8
