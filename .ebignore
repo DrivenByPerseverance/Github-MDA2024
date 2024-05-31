@@ -1,3 +1,8 @@
+.gitignore
+.venv
+README.md
+runtime.txt
+requirements_model.txt
 1_Data/*
 1_Data/AED_locations
 1_Data/Interventions_data
