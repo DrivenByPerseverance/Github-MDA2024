@@ -53,10 +53,11 @@ cytoscape_layout_1 = cyto.Cytoscape(
 
 # Define the steps of the data cleaning process
 steps_2 = [
-    "AED + AMBULANCE + PIT + MUG: Standardize columns with string type by removing spacing next to '-' and capitalizing",
-    "AED + AMBULANCE + PIT + MUG: Convert “postcode“ from float to string → join with \"address\", \"province\" and \"municipality\" to produce the full address",
-    "PIT: extract the hospital name and campus name from “campus”",
-    "AED + AMBULANCE + PIT + MUG: Get the latitude and longitude using GoogleMap API (a key is needed)",
+    "AED + MEDICAL TRANSPORT: Standardize columns with string type by removing spacing next to '-' and capitalizing",
+    "AED + MEDICAL TRANSPORT: Convert “postcode“ from float to string",
+    "AED + MEDICAL TRANSPORT: Merge “postcode“ with \"address\", \"province\" and \"municipality\" to obtain the full address",
+    "PIT: Extract the hospital name and campus name from “campus”",
+    "AED + MEDICAL TRANSPORT: Get the latitude and longitude using GoogleMap API (a key is needed)",
     "AED + INTERVENTIONS: Get the provinces using the polygon shape in \"Belgium.provinces.WGS84.geojson\"",
     "AED + INTERVENTIONS + HOSPITALS (MUG+PIT): Calculate the distance between each intervention and the nearest AED / hospital"
 ]
