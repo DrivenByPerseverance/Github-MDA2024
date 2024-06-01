@@ -1,6 +1,7 @@
 .venv
 1_Data/*
 2_Notebooks/*
+App/__pycache__
 cache
 .gitignore
 README.md
