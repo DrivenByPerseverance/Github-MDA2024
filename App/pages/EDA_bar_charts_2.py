@@ -1,4 +1,3 @@
-import base64
 import os
 import asyncio
 from dash import html, dcc
@@ -39,7 +38,7 @@ async def load_dataset(filename, cache_dir='cache'):
         
         # Read the Parquet file from S3 into a Dask DataFrame for efficient parallel processing
         print(f"Downloading {filename} from S3")
-        dataset = dd.read_parquet(file_path, engine='pyarrow').compute()
+        dataset = pd.read_parquet(file_path, engine='pyarrow').compute()
         
         # Cache the dataset locally
         dataset.to_parquet(local_path, engine='pyarrow')

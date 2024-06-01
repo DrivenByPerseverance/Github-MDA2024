@@ -1,5 +1,5 @@
 import asyncio
-from dash import html, dcc, Input, Output
+from dash import html, dcc
 import plotly.graph_objs as go
 import pandas as pd
 import calendar
