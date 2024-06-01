@@ -3,8 +3,6 @@ import asyncio
 from dash import html, dcc
 import plotly.graph_objs as go
 import pandas as pd
-import dask.dataframe as dd
-
 
 image_url = 'https://mda2024public.s3.eu-north-1.amazonaws.com/CLEANED/timestamps.png'
 
