@@ -1,9 +1,11 @@
-import os
 import pandas as pd
 import asyncio
 from dash import html
 import folium
+import os
 
+# LOAD DATA FROM FOLDER
+"""
 # Define a function to load the dataset asynchronously
 async def load_dataset():
     file_path_emergence_services = '1_Data/CLEANED/hospital.csv'
@@ -18,6 +20,45 @@ async def load_dataset():
     # Simulate data loading time
     await asyncio.sleep(1)
     return hospital_df, cardiac_df, aed_df
+"""
+
+# LOAD DATA FROM S3 BUCKET
+# Define a function to load the dataset asynchronously with caching
+async def load_dataset(cache_dir='cache'):
+    # Define the file paths
+    file_path_emergence_services = '1_Data/CLEANED/hospital.csv'
+    file_path_cardiac_events = '1_Data/CLEANED/intervention_aed_kmeans_distance.csv'
+    file_path_AED = '1_Data/CLEANED/aed_with_KmeansLocation.csv'
+    
+    # Create cache directory if it doesn't exist
+    os.makedirs(cache_dir, exist_ok=True)
+    
+    # Check if the files are already cached locally
+    hospital_cache_path = os.path.join(cache_dir, 'hospital.csv')
+    cardiac_cache_path = os.path.join(cache_dir, 'intervention_aed_kmeans_distance.csv')
+    aed_cache_path = os.path.join(cache_dir, 'aed_with_KmeansLocation.csv')
+    
+    if os.path.exists(hospital_cache_path) and os.path.exists(cardiac_cache_path) and os.path.exists(aed_cache_path):
+        print("Loading datasets from cache")
+        hospital_df = pd.read_csv(hospital_cache_path)
+        cardiac_df = pd.read_csv(cardiac_cache_path)
+        aed_df = pd.read_csv(aed_cache_path)
+    else:
+        # Read the CSV files into pandas DataFrames
+        print("Downloading and caching datasets")
+        hospital_df = pd.read_csv(file_path_emergence_services)
+        cardiac_df = pd.read_csv(file_path_cardiac_events)
+        aed_df = pd.read_csv(file_path_AED)
+
+        # Cache the datasets locally
+        hospital_df.to_csv(hospital_cache_path, index=False)
+        cardiac_df.to_csv(cardiac_cache_path, index=False)
+        aed_df.to_csv(aed_cache_path, index=False)
+    
+    # Simulate data loading time
+    await asyncio.sleep(1)
+    return hospital_df, cardiac_df, aed_df
+
 
 # Define a function to create the heatmap layout
 async def map_belgium_layout():

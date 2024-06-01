@@ -2,7 +2,10 @@ import pandas as pd
 import asyncio
 from dash import html
 import folium
+import os
 
+# LOAD DATA FROM FOLDER
+"""
 # Define a function to load the dataset asynchronously
 async def load_dataset():
     # Define the absolute path to the Parquet file
@@ -22,6 +25,59 @@ async def load_dataset():
     # Simulate data loading time
     await asyncio.sleep(1)
     return old_aed_df, aed_kmeans_df, aed_lscp_df, hospital_df, cardiac_df
+"""
+
+# LOAD DATA FROM S3 BUCKET
+# Define a function to load the dataset asynchronously with caching
+async def load_dataset(cache_dir='cache'):
+    # Define the file paths
+    file_path_emergence_services = '1_Data/CLEANED/hospital_brl.csv'
+    file_path_cardiac_events = '1_Data/CLEANED/intervention_aed_brl.csv'
+    file_path_old_AED = '1_Data/CLEANED/aed_brl.csv'
+    file_path_AED_kmeans = '1_Data/CLEANED/aed_brl_kmeans.csv'
+    file_path_AED_lscp ='1_Data/CLEANED/aed_brl_lscp.csv'
+    
+    # Create cache directory if it doesn't exist
+    os.makedirs(cache_dir, exist_ok=True)
+    
+    # Check if the files are already cached locally
+    hospital_cache_path = os.path.join(cache_dir, 'hospital_brl.csv')
+    cardiac_cache_path = os.path.join(cache_dir, 'intervention_aed_brl.csv')
+    old_aed_cache_path = os.path.join(cache_dir, 'aed_brl.csv')
+    aed_kmeans_cache_path = os.path.join(cache_dir, 'aed_brl_kmeans.csv')
+    aed_lscp_cache_path = os.path.join(cache_dir, 'aed_brl_lscp.csv')
+    
+    if os.path.exists(hospital_cache_path) and os.path.exists(cardiac_cache_path) \
+        and os.path.exists(old_aed_cache_path) and os.path.exists(aed_kmeans_cache_path) \
+        and os.path.exists(aed_lscp_cache_path):
+        
+        print("Loading datasets from cache")
+        hospital_df = pd.read_csv(hospital_cache_path)
+        cardiac_df = pd.read_csv(cardiac_cache_path)
+        old_aed_df = pd.read_csv(old_aed_cache_path)
+        aed_kmeans_df = pd.read_csv(aed_kmeans_cache_path)
+        aed_lscp_df = pd.read_csv(aed_lscp_cache_path)
+        
+    else:
+        # Read the CSV files into pandas DataFrames
+        print("Downloading and caching datasets")
+        hospital_df = pd.read_csv(file_path_emergence_services)
+        cardiac_df = pd.read_csv(file_path_cardiac_events)
+        old_aed_df = pd.read_csv(file_path_old_AED)
+        aed_kmeans_df = pd.read_csv(file_path_AED_kmeans)
+        aed_lscp_df = pd.read_csv(file_path_AED_lscp)
+
+        # Cache the datasets locally
+        hospital_df.to_csv(hospital_cache_path, index=False)
+        cardiac_df.to_csv(cardiac_cache_path, index=False)
+        old_aed_df.to_csv(old_aed_cache_path, index=False)
+        aed_kmeans_df.to_csv(aed_kmeans_cache_path, index=False)
+        aed_lscp_df.to_csv(aed_lscp_cache_path, index=False)
+    
+    # Simulate data loading time
+    await asyncio.sleep(1)
+    return old_aed_df, aed_kmeans_df, aed_lscp_df, hospital_df, cardiac_df
+
 
 # Define a function to create the heatmap layout
 async def map_brussels_layout():
