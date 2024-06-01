@@ -2,7 +2,9 @@ import asyncio
 from dash import html, dcc
 import plotly.graph_objs as go
 import pandas as pd
+import os
 
+"""
 # Define a function to load the dataset asynchronously
 async def load_dataset(option):
     if option == 1:
@@ -31,6 +33,53 @@ async def load_dataset(option):
     # Simulate data loading time
     await asyncio.sleep(1)
     return interventions_dataset, selected_columns
+"""
+
+# LOAD DATA FROM S3 BUCKET
+# Define a function to load the dataset asynchronously with caching
+async def load_dataset(option, cache_dir='cache'):
+    if option == 1:
+        file_path = 's3://mda2024public/CLEANED/subset_correlation_heatmap1.parquet'
+        selected_columns = ['eventlevel_trip', 'eventlevel_firstcall']
+    elif option == 2:
+        file_path = 's3://mda2024public/CLEANED/subset_correlation_heatmap2.parquet'
+        selected_columns = ['eventtype_trip', 'eventtype_firstcall']
+    elif option == 3:
+        file_path = 's3://mda2024public/CLEANED/subset_correlation_heatmap3.parquet'
+        selected_columns = ['eventtype_trip', 'eventlevel_trip']
+    elif option == 4:
+        file_path = 's3://mda2024public/CLEANED/subset_correlation_heatmap4.parquet'
+        selected_columns = ['eventlevel_trip', 'vector_type']
+    elif option == 5:
+        file_path = 's3://mda2024public/CLEANED/subset_correlation_heatmap5.parquet'
+        selected_columns = ['eventtype_trip', 'vector_type']
+    elif option == 6:
+        file_path = 's3://mda2024public/CLEANED/subset_correlation_heatmap6.parquet'
+        selected_columns = ['eventtype_trip', 'abandon_reason']
+    else:
+        raise ValueError("Invalid option")
+    
+    # Create cache directory if it doesn't exist
+    os.makedirs(cache_dir, exist_ok=True)
+    local_path = os.path.join(cache_dir, f"subset_correlation_heatmap{option}.parquet")
+    
+    # Check if the file is already cached locally
+    if os.path.exists(local_path):
+        print(f"Loading subset_correlation_heatmap{option}.parquet from cache")
+        interventions_dataset = pd.read_parquet(local_path, engine='pyarrow')
+    else:
+        # Read the Parquet file into a pandas DataFrame
+        print(f"Downloading subset_correlation_heatmap{option}.parquet")
+        interventions_dataset = pd.read_parquet(file_path, engine='pyarrow')
+        
+        # Cache the dataset locally
+        interventions_dataset.to_parquet(local_path, engine='pyarrow')
+    
+    # Simulate data loading time
+    await asyncio.sleep(1)
+    return interventions_dataset, selected_columns
+
+
 
 # Define a function to create the heatmap layout
 async def correlation_heatmap_layout():

@@ -4,7 +4,7 @@ import asyncio
 from dash import html, dcc
 import plotly.graph_objs as go
 import pandas as pd
-
+import dask.dataframe as dd
 
 def image_to_base64(image_path):
     with open(image_path, "rb") as img_file:
@@ -14,11 +14,41 @@ def image_to_base64(image_path):
 image_path = 'App/assets/timestamps.png'
 base64_encoded_image = image_to_base64(image_path)
 
-
+# LOAD DATA FROM FOLDER
+"""
 # Define a function to load the dataset asynchronously
-async def load_dataset(filepath):
+async def load_dataset(filename):
+    # File path to folder
+    file_path = f'1_Data/CLEANED/{filename}'
     # Read the Parquet file into a pandas DataFrame
-    dataset = pd.read_parquet(filepath, engine='pyarrow')
+    dataset = pd.read_parquet(file_path, engine='pyarrow')
+    # Simulate data loading time
+    await asyncio.sleep(1)
+    return dataset
+"""
+
+# LOAD DATA FROM S3 BUCKET
+# Define a function to load the dataset asynchronously with caching
+async def load_dataset(filename, cache_dir='cache'):
+    # Create cache directory if it doesn't exist
+    os.makedirs(cache_dir, exist_ok=True)
+    local_path = os.path.join(cache_dir, filename)
+    
+    # Check if the file is already cached locally
+    if os.path.exists(local_path):
+        print(f"Loading {filename} from cache")
+        dataset = pd.read_parquet(local_path, engine='pyarrow')
+    else:
+        # File path to S3 bucket
+        file_path = f's3://mda2024public/CLEANED/{filename}'
+        
+        # Read the Parquet file from S3 into a Dask DataFrame for efficient parallel processing
+        print(f"Downloading {filename} from S3")
+        dataset = dd.read_parquet(file_path, engine='pyarrow').compute()
+        
+        # Cache the dataset locally
+        dataset.to_parquet(local_path, engine='pyarrow')
+    
     # Simulate data loading time
     await asyncio.sleep(1)
     return dataset
@@ -63,11 +93,11 @@ def create_bar_chart_figure(dataset, title):
 # Define a function to create the bar chart layout
 async def bar_chart_2_layout():
     # Load the main dataset asynchronously
-    interventions_dataset = await load_dataset('1_Data/CLEANED/interventions_dataset.parquet')
+    interventions_dataset = await load_dataset('interventions_dataset.parquet')
     fig1 = create_bar_chart_figure(interventions_dataset, 'Median Time Differences by Step in the Process and Vector Type (All interventions)')
 
     # Load the subset cardiac dataset asynchronously
-    subset_cardiac_dataset = await load_dataset('1_Data/CLEANED/subset_cardiac.parquet')
+    subset_cardiac_dataset = await load_dataset('subset_cardiac.parquet')
     fig2 = create_bar_chart_figure(subset_cardiac_dataset, 'Median Time Differences by Step in the Process and Vector Type (P003 - Cardiac Arrest)')
 
     # Define layout for the bar charts
