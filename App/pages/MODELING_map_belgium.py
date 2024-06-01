@@ -144,8 +144,8 @@ async def map_belgium_layout():
                     [
                         html.Li("Emergency services (green)"),
                         html.Li("Cardiac events (red)"),
-                        html.Li("Current distribution of AED devices (purple)"),
-                        html.Li("New distribution of AED devices using K-means (blue)"),
+                        html.Li("Current distribution of AED (purple)"),
+                        html.Li("New distribution of AED using K-means (blue)"),
                     ],
                     style={'list-style-type': 'disc', 'margin-left': '10%', 'text-align': 'left', 'display': 'inline-block'}
                 ),

@@ -120,7 +120,7 @@ def generate_map_layout(subset_selected_events):
                 )
 
                 # Load shapefile
-                shapefile_path = 'App/assets/shapefile_BEL_adm2.shp'
+                shapefile_path = os.path.join('App', 'assets', 'shapefile_BEL_adm2.shp')
                 gdf = gpd.read_file(shapefile_path)
 
                 for geom in gdf['geometry']:

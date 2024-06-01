@@ -53,12 +53,12 @@ cytoscape_layout_1 = cyto.Cytoscape(
 
 # Define the steps of the data cleaning process
 steps_2 = [
-    "Standardize columns with string type by removing spacing next to '-' and capitalizing",
-    "Convert “postcode“ from float to string → join with \"address\", \"province\" and \"municipality\" to produce the full address",
+    "AED + AMBULANCE + PIT + MUG: Standardize columns with string type by removing spacing next to '-' and capitalizing",
+    "AED + AMBULANCE + PIT + MUG: Convert “postcode“ from float to string → join with \"address\", \"province\" and \"municipality\" to produce the full address",
     "PIT: extract the hospital name and campus name from “campus”",
-    "Get the latitude and longitude using GoogleMap API (a key is needed)",
-    "AED + interventions data sets: Get the provinces using the polygon shape in \"Belgium.provinces.WGS84.geojson\"",
-    "Calculate the distance between each intervention and the nearest AED / hospital"
+    "AED + AMBULANCE + PIT + MUG: Get the latitude and longitude using GoogleMap API (a key is needed)",
+    "AED + INTERVENTIONS: Get the provinces using the polygon shape in \"Belgium.provinces.WGS84.geojson\"",
+    "AED + INTERVENTIONS + HOSPITALS (MUG+PIT): Calculate the distance between each intervention and the nearest AED / hospital"
 ]
 
 # Define the nodes and edges for the cytoscape layout
@@ -82,12 +82,11 @@ data_cleaning_layout = html.Div([
         html.Br(),
         dbc.Row([
             dbc.Col([
-                html.H3("Data cleaning of the interventions data sets", style={'textAlign': 'center'}),
+                html.H3("Data cleaning of the data on interventions", style={'textAlign': 'center'}),
                 cytoscape_layout_1
             ], width=6),  # First column takes up 6 out of 12 columns
             dbc.Col([
-                html.H3("Data cleaning of the locations data sets", style={'textAlign': 'center'}),
-                html.H3("(AED devices, Ambulance, PIT, MUG)", style={'textAlign': 'center'}),
+                html.H3("Data cleaning of the data on locations", style={'textAlign': 'center'}),
                 cytoscape_layout_2
             ], width=6),  # Second column takes up 6 out of 12 columns
         ], className="mt-3")  # Add margin-top to the row
