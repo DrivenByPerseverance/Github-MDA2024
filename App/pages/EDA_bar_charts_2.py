@@ -6,22 +6,23 @@ import plotly.graph_objs as go
 import pandas as pd
 import dask.dataframe as dd
 
-# Define the path components
-path_components = ['App', 'assets', 'timestamps.png']
-# Join the components using os.path.join
-image_path = os.path.join(*path_components)
 
-def image_to_base64(image_path):
-    try:
-        with open(image_path, "rb") as img_file:
-            encoded_string = base64.b64encode(img_file.read()).decode('utf-8')
-        return encoded_string
-    except FileNotFoundError:
-        print(f"Error: The file {image_path} was not found.")
-        return None
+image_url = 'https://mda2024public.s3.eu-north-1.amazonaws.com/CLEANED/timestamps.png'
 
-base64_encoded_image = image_to_base64(image_path)
+# LOAD DATA FROM FOLDER
+"""
+# Define a function to load the dataset asynchronously
+async def load_dataset(filename):
+    # File path to folder
+    file_path = f'1_Data/CLEANED/{filename}'
+    # Read the Parquet file into a pandas DataFrame
+    dataset = pd.read_parquet(file_path, engine='pyarrow')
+    # Simulate data loading time
+    await asyncio.sleep(1)
+    return dataset
+"""
 
+# LOAD DATA FROM S3 BUCKET
 # Define a function to load the dataset asynchronously with caching
 async def load_dataset(filename, cache_dir='cache'):
     # Create cache directory if it doesn't exist
@@ -68,21 +69,17 @@ def create_bar_chart_figure(dataset, title):
     # Create traces for each vector type
     data = []
     for vector_type, row in grouped.iterrows():
-        trace = go.Bar(
-            x=['T0 -> T1', 'T1 -> T2', 'T2 -> T3', 'T3 -> T4', 'T4 -> T5', 'T5 -> T6', 'T6 -> T7'],
-            y=row[['T0 -> T1', 'T1 -> T2', 'T2 -> T3', 'T3 -> T4', 'T4 -> T5', 'T5 -> T6', 'T6 -> T7']],
-            name=vector_type
-        )
+        trace = go.Bar(x=['T0 -> T1', 'T1 -> T2', 'T2 -> T3', 'T3 -> T4', 'T4 -> T5', 'T5 -> T6', 'T6 -> T7'],
+                       y=row[['T0 -> T1', 'T1 -> T2', 'T2 -> T3', 'T3 -> T4', 'T4 -> T5', 'T5 -> T6', 'T6 -> T7']],
+                       name=vector_type)
         data.append(trace)
 
     # Create layout
-    layout = go.Layout(
-        title=title,
-        xaxis=dict(title='t Columns'),
-        yaxis=dict(title='Median Time Difference (minutes)'),
-        barmode='group',  # Add barmode to group bars
-        legend=dict(title='Vector Type')
-    )
+    layout = go.Layout(title=title,
+                       xaxis=dict(title='t Columns'),
+                       yaxis=dict(title='Median Time Difference (minutes)'),
+                       barmode='group',  # Add barmode to group bars
+                       legend=dict(title='Vector Type'))
 
     # Create figure
     fig = go.Figure(data=data, layout=layout)
@@ -102,10 +99,7 @@ async def bar_chart_2_layout():
     bar_chart_layout = html.Div([
         html.Div([
             html.P("Steps in the process:", style={'margin-top': '20px', 'text-align': 'center', 'font-weight': 'bold'}),
-            html.Img(
-                src=f"data:image/png;base64,{base64_encoded_image}" if base64_encoded_image else '',
-                style={'width': '400px', 'display': 'block', 'margin': 'auto', 'margin-bottom': '20px'}
-            ),
+            html.Img(src=image_url, style={'width': '400px', 'display': 'block', 'margin': 'auto', 'margin-bottom': '20px'}),
         ]),
         html.Div([
             dcc.Graph(
@@ -135,5 +129,4 @@ async def bar_chart_2_layout():
     ])
 
     return bar_chart_layout
-
 
