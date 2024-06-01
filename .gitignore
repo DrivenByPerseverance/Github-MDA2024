@@ -1,4 +1,5 @@
 .DS_Store
+.ebignore
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
