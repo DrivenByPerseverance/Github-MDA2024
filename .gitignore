@@ -1,6 +1,5 @@
 .DS_Store
 .venv
-.ebignore
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

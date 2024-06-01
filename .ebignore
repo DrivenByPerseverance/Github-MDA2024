@@ -1,0 +1,8 @@
+.venv
+1_Data/*
+2_Notebooks/*
+cache
+.gitignore
+README.md
+requirements_model.txt
+runtime.txt
