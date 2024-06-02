@@ -16,6 +16,7 @@ fiona==1.9.6
 Flask==3.0.3
 folium==0.16.0
 geopandas==0.14.4
+gunicorn==20.1.0 #Needed for deployment
 idna==3.7
 importlib_metadata==7.1.0
 itsdangerous==2.2.0
