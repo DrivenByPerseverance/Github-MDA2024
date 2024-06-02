@@ -5,6 +5,7 @@
 App/__pycache__
 App/__init__.py
 cache
+.git/*
 .gitignore
 README.md
 requirements_model.txt
