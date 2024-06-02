@@ -10,9 +10,9 @@ Visualization and exploratory analysis on medical interventions: [2_Notebooks/2_
 Statistical modeling on cardiac interventions and AED optimization: [2_Notebooks/3_Modeling](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/2_Notebooks/3_Modeling)
 ## Section 4: App Building and Deployment
 Dash App construction and deployment: [App](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/App) and [application.py](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/application.py).
-Our App is deployed on "Github-MDA2024.eba-upcwsrqy.eu-west-3.elasticbeanstalk.com"
+Our App is deployed [here](http://github-mda2024.eba-upcwsrqy.eu-west-3.elasticbeanstalk.com/).
 
 
 ### Remark: 
-Most data(including the raw data and intermediate data) are provided in [1_Data](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/1_Data). 
+Most data(including the raw data and intermediate data) are provided in [1_Data](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/1_Data). File
 [requirements.txt](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/requirements.txt) is needed for running the app and [requirements_notebook.txt](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/requirements_notebook.txt) is needed for running the notebooks.
