@@ -17,5 +17,4 @@ The folder with the pages of the app: [App](https://github.com/DrivenByPersevera
 Our App is deployed on [here](http://github-mda2024.eba-upcwsrqy.eu-west-3.elasticbeanstalk.com/)
 
 ### Remark: 
-[requirements.txt](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/requirements.txt) is needed for running the app 
-[requirements_notebook.txt](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/requirements_notebook.txt) is needed for running the notebooks
+[requirements.txt](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/requirements.txt) is needed for running the app. [requirements_notebook.txt](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/requirements_notebook.txt) is needed for running the notebooks.
