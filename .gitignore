@@ -2,7 +2,8 @@
 .venv
 .venv-notebooks
 
-.ebextensions
+.ebextensions/*
+.platform/*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
