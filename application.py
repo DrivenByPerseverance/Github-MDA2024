@@ -193,7 +193,7 @@ def update_bubble_map_figure(start_date, end_date):
 
 if __name__ == '__main__':
     #app.run_server(debug=True)
-    app.run_server(host='0.0.0.0', port=8050, debug=True) # Host + port needs to be the same as in Procfile
+    app.run_server(host='0.0.0.0', port=8000, debug=True) # Host + port needs to be the same as in Procfile
 
 
 
