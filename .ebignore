@@ -1,7 +1,9 @@
+.elasticbeanstalk/app_versions
 .venv
 1_Data/*
 2_Notebooks/*
 App/__pycache__
+App/__init__.py
 cache
 .gitignore
 README.md
