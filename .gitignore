@@ -1,6 +1,8 @@
 .DS_Store
 .venv
 
+.ebextensions
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
