@@ -9,7 +9,7 @@ Visualization and exploratory analysis on medical interventions: [2_Notebooks/2_
 ## Section 3: Statistical Modeling and Optimization
 Statistical modeling on cardiac interventions and AED optimization: [2_Notebooks/3_Modeling](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/2_Notebooks/3_Modeling)
 ## Section 4: App Building and Deployment
-Dash App construction and deployment: [App](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/App) and [application.py](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/application.py)
+Dash App construction and deployment: [App](https://github.com/DrivenByPerseverance/Github-MDA2024/tree/main/App) and [application.py](https://github.com/DrivenByPerseverance/Github-MDA2024/blob/main/application.py).
 Our App is deployed [here](Github-MDA2024.eba-upcwsrqy.eu-west-3.elasticbeanstalk.com).
 
 
